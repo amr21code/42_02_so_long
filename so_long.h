@@ -6,7 +6,7 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:14 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/10 19:38:26 by anruland         ###   ########.fr       */
+/*   Updated: 2022/04/11 19:29:14 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 # include <stdlib.h>
 # include <string.h>
 # include "./libft/libft.h"
-# include "./libprintf/ft_printf.h"
+# include "./libftprintf/ft_printf.h"
+# include "./gnl/get_next_line.h"
+# include <fcntl.h>
 
 typedef struct s_data
 {
@@ -35,5 +37,7 @@ typedef struct s_winvars
 	void	*id;
 	void	*win;
 }	t_winvars;
+
+void	*ft_realloc(void *addr, size_t size);
 
 #endif

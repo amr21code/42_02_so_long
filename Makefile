@@ -6,7 +6,7 @@
 #    By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/19 18:25:30 by anruland          #+#    #+#              #
-#    Updated: 2022/04/10 16:29:34 by anruland         ###   ########.fr        #
+#    Updated: 2022/04/11 20:02:59 by anruland         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,12 +28,13 @@ NO_COLOR    = \033[m
 # Files
 
 SRC		= ./*.c
+GNL		= ./gnl/*.c
 
 all: $(NAME)
 
 $(NAME): setup
 	@echo "$(COM_COLOR)Compiling so_long$(NO_COLOR)"
-	@$(CC) $(CFLAGS) $(SRC) -o $(NAME) $(LIB_DIR) $(LIBS)
+	@$(CC) $(CFLAGS) $(SRC) $(GNL) -o $(NAME) $(LIB_DIR) $(LIBS)
 	@echo "$(OK_COLOR)Finished - usage: ./$(NAME) $(NO_COLOR)"
 
 setup:

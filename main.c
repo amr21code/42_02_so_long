@@ -6,7 +6,7 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:19 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/10 20:09:34 by anruland         ###   ########.fr       */
+/*   Updated: 2022/04/11 20:02:20 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,48 @@ int	sl_exit(int keycode, t_winvars *win)
 	return (0);
 }
 
+char	*sl_read_map(char *dir)
+{
+	int		fd;
+	char	*tmp;
+	char	*map;
+	int		line;
+	int		size;
+	int		strlcat;
+
+	size = 0;
+	strlcat = 0;
+	fd = open(dir, O_RDONLY);
+	tmp = get_next_line(fd);
+	line = ft_strlen(tmp);
+	while (tmp)
+	{
+		if (!map)
+			map = tmp;
+		else
+		{
+			size = ft_strlen(map);
+			map = ft_realloc(map, (size + line + 1));
+			strlcat = ft_strlcat(map, tmp, line);
+			ft_printf("%d\n", strlcat);
+		}
+		tmp = get_next_line(fd);
+		if (line != (int)ft_strlen(tmp))
+		{
+			ft_printf("Error\n Wrong file Format");
+			exit(0);
+		}
+	}
+	close(fd);
+	return (map);
+}
+
 int	main(int ac, char **av)
 {
 	if (ac != 2)
 		return (0);
-	
+	sl_read_map(av[1]);
+	ft_printf("File correct");
 
 	// t_data		img;
 	// t_winvars	win;
