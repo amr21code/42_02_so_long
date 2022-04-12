@@ -6,7 +6,7 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:19 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/11 20:02:20 by anruland         ###   ########.fr       */
+/*   Updated: 2022/04/12 20:23:48 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ char	*sl_read_map(char *dir)
 	char	*map;
 	int		line;
 	int		size;
-	int		strlcat;
 
 	size = 0;
-	strlcat = 0;
 	fd = open(dir, O_RDONLY);
 	tmp = get_next_line(fd);
 	line = ft_strlen(tmp);
@@ -44,25 +42,33 @@ char	*sl_read_map(char *dir)
 		{
 			size = ft_strlen(map);
 			map = ft_realloc(map, (size + line + 1));
-			strlcat = ft_strlcat(map, tmp, line);
-			ft_printf("%d\n", strlcat);
+			ft_strlcat(map, tmp, (size + line + 1));
 		}
 		tmp = get_next_line(fd);
-		if (line != (int)ft_strlen(tmp))
-		{
-			ft_printf("Error\n Wrong file Format");
-			exit(0);
-		}
 	}
 	close(fd);
 	return (map);
 }
 
+int	sl_check_map(char *map)
+{
+	char	*elem;
+
+	*elem = "CEP";
+	if (!(ft_strchr(map, 'C') && ft_strchr(map, 'E') && ft_strchr(map, 'P')))
+		return (0);
+	return (1);
+}
+
 int	main(int ac, char **av)
 {
+	int	*map;
+
 	if (ac != 2)
 		return (0);
-	sl_read_map(av[1]);
+	map = sl_read_map(av[1]);
+	if (!sl_check_map(map))
+		return (0);
 	ft_printf("File correct");
 
 	// t_data		img;

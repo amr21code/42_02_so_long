@@ -6,7 +6,7 @@
 #    By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/19 18:25:30 by anruland          #+#    #+#              #
-#    Updated: 2022/04/11 20:02:59 by anruland         ###   ########.fr        #
+#    Updated: 2022/04/12 19:24:51 by anruland         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ NO_COLOR    = \033[m
 # Files
 
 SRC		= ./*.c
-GNL		= ./gnl/*.c
+GNL		= ./gnl/get_next_line.c
 
 all: $(NAME)
 
