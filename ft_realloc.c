@@ -6,11 +6,12 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 18:41:54 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/11 19:22:57 by anruland         ###   ########.fr       */
+/*   Updated: 2022/04/14 16:50:38 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./libft/libft.h"
+#include <stdio.h>
 
 void	*ft_realloc(void *addr, size_t size)
 {

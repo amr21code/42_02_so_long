@@ -6,7 +6,7 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:19 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/12 20:23:48 by anruland         ###   ########.fr       */
+/*   Updated: 2022/04/14 20:11:57 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@ int	sl_exit(int keycode, t_winvars *win)
 	return (0);
 }
 
-char	*sl_read_map(char *dir)
+char	*sl_read_map(char *dir, char *map)
 {
 	int		fd;
 	char	*tmp;
-	char	*map;
 	int		line;
 	int		size;
 
@@ -37,7 +36,9 @@ char	*sl_read_map(char *dir)
 	while (tmp)
 	{
 		if (!map)
+		{
 			map = tmp;
+		}
 		else
 		{
 			size = ft_strlen(map);
@@ -50,23 +51,79 @@ char	*sl_read_map(char *dir)
 	return (map);
 }
 
+int	ft_strlen_c(char *str, char c)
+{
+	int	str_count;
+
+	str_count = 0;
+	while (str[str_count] != c && str[str_count] != '\0')
+	{
+		str_count++;
+	}
+	return (str_count);
+}
+
+int	sl_check_walls(char *map, int cols, int rows)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < rows)
+	{
+		j = 0;
+		while (j < cols)
+		{
+			if (map[(i * (cols + 1)) + j] == '\n')
+				j++;
+			else if (i == 0 && map[(i * (cols + 1)) + j] != '1')
+				return (0);
+			else if (i > 0 && i < (rows - 1)
+				&& (map[(i * (cols + 1))] != '1'
+					|| map[(i * (cols + 1)) + cols - 1] != '1'))
+				return (0);
+			else if (i == (rows - 1) && (map[i * (cols + 1) + j] != '1' ))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
 int	sl_check_map(char *map)
 {
-	char	*elem;
+	int	line;
+	int	i;
 
-	*elem = "CEP";
 	if (!(ft_strchr(map, 'C') && ft_strchr(map, 'E') && ft_strchr(map, 'P')))
 		return (0);
+	line = ft_strlen_c(map, '\n');
+	i = line;
+	while (map[i])
+	{
+		if (i % (line + 1) == 0)
+		{
+			if (line != ft_strlen_c((map + i), '\n'))
+				return (0);
+		}
+		i++;
+	}
+	if (!sl_check_walls(map, line, (i / line)))
+	{
+		ft_printf("Error: Map not surrounded by walls!\n");
+		return (0);
+	}
 	return (1);
 }
 
 int	main(int ac, char **av)
 {
-	int	*map;
+	char	*map;
 
 	if (ac != 2)
 		return (0);
-	map = sl_read_map(av[1]);
+	map = sl_read_map(av[1], NULL);
 	if (!sl_check_map(map))
 		return (0);
 	ft_printf("File correct");
