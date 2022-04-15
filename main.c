@@ -6,13 +6,13 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:19 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/14 20:11:57 by anruland         ###   ########.fr       */
+/*   Updated: 2022/04/15 20:37:23 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	sl_exit(int keycode, t_winvars *win)
+int	sl_esc(int keycode, t_winvars *win)
 {
 	if (keycode == 0xff1b)
 	{
@@ -22,125 +22,91 @@ int	sl_exit(int keycode, t_winvars *win)
 	return (0);
 }
 
-char	*sl_read_map(char *dir, char *map)
+int	sl_exit_x(t_winvars *win)
+{
+	mlx_destroy_window(win->id, win->win);
+	exit(0);
+	return (0);
+}
+
+void	sl_read_map(char *dir, t_map **map)
 {
 	int		fd;
 	char	*tmp;
-	int		line;
 	int		size;
 
 	size = 0;
 	fd = open(dir, O_RDONLY);
 	tmp = get_next_line(fd);
-	line = ft_strlen(tmp);
+	*map = (t_map *)malloc(sizeof(t_map));
+	(*map)->map = NULL;
+	(*map)->x = ft_strlen(tmp);
 	while (tmp)
 	{
-		if (!map)
-		{
-			map = tmp;
-		}
+		if (!(*map)->map)
+			(*map)->map = tmp;
 		else
 		{
-			size = ft_strlen(map);
-			map = ft_realloc(map, (size + line + 1));
-			ft_strlcat(map, tmp, (size + line + 1));
+			size = ft_strlen((*map)->map);
+			(*map)->map = ft_realloc((*map)->map, (size + (*map)->x + 1));
+			ft_strlcat((*map)->map, tmp, (size + (*map)->x + 1));
 		}
 		tmp = get_next_line(fd);
 	}
 	close(fd);
-	return (map);
+	free(tmp);
 }
 
-int	ft_strlen_c(char *str, char c)
+int	sl_min(int x, int y, int img_size)
 {
-	int	str_count;
+	int	minx;
+	int	miny;
 
-	str_count = 0;
-	while (str[str_count] != c && str[str_count] != '\0')
-	{
-		str_count++;
-	}
-	return (str_count);
-}
-
-int	sl_check_walls(char *map, int cols, int rows)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < rows)
-	{
-		j = 0;
-		while (j < cols)
-		{
-			if (map[(i * (cols + 1)) + j] == '\n')
-				j++;
-			else if (i == 0 && map[(i * (cols + 1)) + j] != '1')
-				return (0);
-			else if (i > 0 && i < (rows - 1)
-				&& (map[(i * (cols + 1))] != '1'
-					|| map[(i * (cols + 1)) + cols - 1] != '1'))
-				return (0);
-			else if (i == (rows - 1) && (map[i * (cols + 1) + j] != '1' ))
-				return (0);
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
-
-int	sl_check_map(char *map)
-{
-	int	line;
-	int	i;
-
-	if (!(ft_strchr(map, 'C') && ft_strchr(map, 'E') && ft_strchr(map, 'P')))
-		return (0);
-	line = ft_strlen_c(map, '\n');
-	i = line;
-	while (map[i])
-	{
-		if (i % (line + 1) == 0)
-		{
-			if (line != ft_strlen_c((map + i), '\n'))
-				return (0);
-		}
-		i++;
-	}
-	if (!sl_check_walls(map, line, (i / line)))
-	{
-		ft_printf("Error: Map not surrounded by walls!\n");
-		return (0);
-	}
-	return (1);
+	minx = img_size / x;
+	miny = img_size / y;
+	if (minx < miny)
+		return (minx);
+	else
+		return (miny);
 }
 
 int	main(int ac, char **av)
 {
-	char	*map;
-
-	if (ac != 2)
-		return (0);
-	map = sl_read_map(av[1], NULL);
-	if (!sl_check_map(map))
-		return (0);
-	ft_printf("File correct");
-
+	t_map		*map;
 	// t_data		img;
-	// t_winvars	win;
+	t_winvars	win;
+	int			pos[2];
+	t_data		*img2;
+	char		*path = "./sprites/wall_1.xpm";
+	int			fd;
 
-	// win.id = mlx_init();
-	// win.win = mlx_new_window(win.id, 200, 200, "Test");
-	// img.img = mlx_new_image(win.id, 200, 200);
+	if (ac != 2 || !ft_strnstr(av[1], ".ber", ft_strlen(av[1])))
+		return (0);
+	sl_read_map(av[1], &map);
+	if (sl_error_msg(sl_check_map(&map)))
+		return (1);
+	ft_printf("File correct");
+	img2 = malloc(sizeof(t_data));
+	map->pps = sl_min(map->x, map->y, 992);
+	win.id = mlx_init();
+	win.win = mlx_new_window(win.id, 1024, 768, "Test");
+	// img.img = mlx_new_image(win.id, 992, 704);
 	// img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.x, &img.endian);
-	// sl_draw_square(&img, 200, 200, 0xFFFFFFFF);
-	// sl_draw_caro(&img, 160, 160);
-	// sl_draw_square(&img, 160, 160, 0x99999999);
-	// mlx_put_image_to_window(win.id, win.win, img.img, 0, 0);
-	// mlx_string_put(win.id, win.win, 30, 40, 0x000000FF, "Test");
-	// mlx_key_hook(win.win, sl_exit, &win);
-	// mlx_loop(win.id);
+	fd = open(path, O_RDONLY);
+	ft_printf("test\n");
+	img2->img = mlx_xpm_file_to_image(&win.id, path, &pos[0], &pos[1]);
+	img2->addr = mlx_get_data_addr(img2->img, &img2->bpp, &img2->x, &img2->endian);
+	close(fd);
+	// sl_draw_square(&img, 992, 704, 0xFFFFFFFF);
+	mlx_put_image_to_window(win.id, win.win, img2->img, 100, 100);
+	// mlx_put_image_to_window(win.id, win.win, img.img, 16, 52);
+	mlx_string_put(win.id, win.win, 30, 40, 0x00FFFFFF, "Test");
+	mlx_key_hook(win.win, sl_esc, &win);
+	mlx_hook(win.win, 17, 0, sl_exit_x, &win);
+	mlx_loop(win.id);
 	return (0);
 }
+
+	// sl_draw_square(&img, 160, 160, 0x99999999);
+	// sl_draw_caro(&img, 600, 600);
+	// sl_draw_square(&img2, 16, 16, 0xFFFFFFFF);
