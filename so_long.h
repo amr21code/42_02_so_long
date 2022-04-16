@@ -6,7 +6,7 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:14 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/15 17:43:31 by anruland         ###   ########.fr       */
+/*   Updated: 2022/04/16 19:42:35 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,32 +23,48 @@
 # include "./gnl/get_next_line.h"
 # include <fcntl.h>
 
-typedef struct s_data
+# define TEX 6
+
+typedef struct s_image
 {
 	void	*img;
-	char	*addr;
+	char	*data;
+	char	*path;
 	int		bpp;
-	int		x;
+	int		line_size;
 	int		endian;
 	int		size_x;
 	int		size_y;
-}	t_data;
+}	t_image;
 
-typedef struct s_winvars
+typedef struct s_mlx
 {
-	void	*id;
+	void	*mlx;
 	void	*win;
-}	t_winvars;
+	int		width;
+	int		height;
+}	t_mlx;
 
 typedef struct s_map
 {
-	char	*map;
+	char	**map;
 	int		x;
 	int		y;
 	int		pps;
+	char	*path;
 }	t_map;
 
+typedef struct s_data
+{
+	t_mlx	mlx;
+	t_map	map;
+	t_image	images[TEX];
+}	t_data;
+
 void	*ft_realloc(void *addr, size_t size);
+int		ft_printerror(char *errormsg);
+int		ft_linecount(char *dir);
+char	*ft_strndup(char *src, int len);
 
 /* sl_draw.c */
 void	sl_draw_px(t_data *img, int x, int y, int color);
@@ -61,5 +77,6 @@ int		ft_strlen_c(char *str, char c);
 int		sl_check_walls(t_map *map);
 int		sl_check_map(t_map **map);
 int		sl_error_msg(int errno);
+void	sl_pre_error_check(int ac, char **av);
 
 #endif

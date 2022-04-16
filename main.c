@@ -6,55 +6,54 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:19 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/15 20:37:23 by anruland         ###   ########.fr       */
+/*   Updated: 2022/04/16 19:58:02 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	sl_esc(int keycode, t_winvars *win)
+int	sl_esc(int keycode, t_mlx *mlx)
 {
 	if (keycode == 0xff1b)
 	{
-		mlx_destroy_window(win->id, win->win);
-		exit(0);
+		sl_exit_x(mlx);
 	}
 	return (0);
 }
 
-int	sl_exit_x(t_winvars *win)
+int	sl_exit_x(t_mlx *mlx)
 {
-	mlx_destroy_window(win->id, win->win);
+	mlx_destroy_window(mlx->mlx, mlx->win);
 	exit(0);
 	return (0);
 }
 
-void	sl_read_map(char *dir, t_map **map)
+void	sl_read_map(t_map *map)
 {
 	int		fd;
 	char	*tmp;
-	int		size;
+	int		i;
 
-	size = 0;
-	fd = open(dir, O_RDONLY);
+	i = 0;
+	map->y = ft_linecount(map->path);
+	map->map = ft_calloc(map->y + 1, sizeof(*map->map));
+	if (!map->map)
+		ft_printerror("Error allocating map data");
+	fd = open(map->path, O_RDONLY);
 	tmp = get_next_line(fd);
-	*map = (t_map *)malloc(sizeof(t_map));
-	(*map)->map = NULL;
-	(*map)->x = ft_strlen(tmp);
+	map->x = ft_strlen(tmp);
 	while (tmp)
 	{
-		if (!(*map)->map)
-			(*map)->map = tmp;
-		else
-		{
-			size = ft_strlen((*map)->map);
-			(*map)->map = ft_realloc((*map)->map, (size + (*map)->x + 1));
-			ft_strlcat((*map)->map, tmp, (size + (*map)->x + 1));
-		}
+		map->map[i] = ft_strndup(tmp, ft_strlen_c(tmp, '\n'));
+		if (!map->map[i])
+			ft_printerror("Error allocating line");
+		i++;
+		free(tmp);
 		tmp = get_next_line(fd);
 	}
 	close(fd);
 	free(tmp);
+	sl_error_msg(sl_check_map(map));
 }
 
 int	sl_min(int x, int y, int img_size)
@@ -72,19 +71,17 @@ int	sl_min(int x, int y, int img_size)
 
 int	main(int ac, char **av)
 {
-	t_map		*map;
-	// t_data		img;
-	t_winvars	win;
-	int			pos[2];
-	t_data		*img2;
-	char		*path = "./sprites/wall_1.xpm";
-	int			fd;
+	t_data		*data;
 
-	if (ac != 2 || !ft_strnstr(av[1], ".ber", ft_strlen(av[1])))
-		return (0);
-	sl_read_map(av[1], &map);
-	if (sl_error_msg(sl_check_map(&map)))
-		return (1);
+	sl_pre_error_check(ac, av);
+	data = malloc(sizeof(*data));
+	if (!data)
+		return (ft_printerror("Error allocating data struct"));
+	data->map.path = av[1];
+	sl_read_map(&data->map);
+
+
+	/* next */
 	ft_printf("File correct");
 	img2 = malloc(sizeof(t_data));
 	map->pps = sl_min(map->x, map->y, 992);

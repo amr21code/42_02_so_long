@@ -6,7 +6,7 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 09:29:56 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/15 12:05:15 by anruland         ###   ########.fr       */
+/*   Updated: 2022/04/16 19:57:47 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,16 @@ int	sl_check_walls(t_map *map)
 	while (i < map->y)
 	{
 		j = 0;
-		while (j < map->x - 1)
+		while (j < map->x)
 		{
-			if (map->map[(i * (map->x + 1)) + j] == '\n')
-				j++;
-			else if (i == 0 && map->map[(i * (map->x + 1)) + j] != '1')
+			if (i == 0 && map->map[i][j] != '1')
 				return (0);
-			else if (i > 0 && i < (map->y - 1)
-				&& (map->map[(i * (map->x))] != '1'
-					|| map->map[(i * (map->x)) + map->x - 2] != '1'))
+			else if (i > 0 && i < map->y
+				&& (map->map[i][0] != '1'
+				|| map->map[i][map->x - 1] != '1'))
 				return (0);
 			else if (i == (map->y - 1)
-				&& (map->map[i * (map->x) + j] != '1' ))
+				&& (map->map[i][j] != '1' ))
 				return (0);
 			j++;
 		}
@@ -53,46 +51,47 @@ int	sl_check_walls(t_map *map)
 	return (1);
 }
 
-int	sl_check_map(t_map **map)
+int	sl_check_map(t_map *map)
 {
 	int	line;
 	int	i;
 
-	if (!(ft_strchr((*map)->map, 'C') && ft_strchr((*map)->map, 'E')
-			&& ft_strchr((*map)->map, 'P')))
+	while (map->map[i])
 	{
-		return (1);
-	}
-	line = ft_strlen_c((*map)->map, '\n');
-	i = line;
-	while ((*map)->map[i])
-	{
-		if (i % (line + 1) == 0)
-		{
-			if (line != ft_strlen_c(((*map)->map + i), '\n'))
-			{
-				return (2);
-			}
-		}
+		if (map->x != ft_strlen(map->map[i]))
+			return (2);
+		if (!(ft_strchr(map->map[i], 'C') && ft_strchr(map->map[i], 'E')
+				&& ft_strchr(map->map[i], 'P')))
+			return (1);
 		i++;
 	}
-	(*map)->y = (i / line);
-	if (!sl_check_walls(*map))
+	if (!sl_check_walls(map))
 		return (3);
 	return (0);
 }
 
-int	sl_error_msg(int errno)
+void	sl_error_msg(int errno)
 {
 	if (errno == 1)
-		ft_printf("Error: collectible, exit or starting position missing!\n");
+		ft_printerror("Error: No collectible, exit or starting position!\n");
 	else if (errno == 2)
-		ft_printf("Error: Map not rectangular!\n");
+		ft_printerror("Error: Map not rectangular!\n");
 	else if (errno == 3)
-		ft_printf("Error: Map not surrounded by walls!\n");
+		ft_printerror("Error: Map not surrounded by walls!\n");
 	else if (errno > 0)
-		ft_printf("unknown error (%d)", errno);
-	if (errno > 0)
-		return (1);
+		ft_printerror("unknown error (%d)", errno);
+}
+
+void	sl_pre_error_check(int ac, char **av)
+{
+	int	fd;
+
+	if (ac != 2)
+		return (ft_printerror("Usage: ./so_long map-path"));
+	fd = open(av[1], O_RDONLY);
+	if (fd < 0)
+		return (ft_printerror("File not found"));
+	if (!ft_strnstr(av[1], ".ber", ft_strlen(av[1])))
+		return (ft_printerror("Not a .ber map"));
 	return (0);
 }
