@@ -6,7 +6,7 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:14 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/16 19:42:35 by anruland         ###   ########.fr       */
+/*   Updated: 2022/04/17 19:19:23 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,16 @@
 # include "./gnl/get_next_line.h"
 # include <fcntl.h>
 
-# define TEX 6
+# define TEX 5
+
+enum e_tex {
+	wall = 0,
+	floor = 1,
+	collectible = 2,
+	door = 3,
+	player = 4,
+	enemy = 5
+};
 
 typedef struct s_image
 {
@@ -67,16 +76,16 @@ int		ft_linecount(char *dir);
 char	*ft_strndup(char *src, int len);
 
 /* sl_draw.c */
-void	sl_draw_px(t_data *img, int x, int y, int color);
-void	sl_draw_square(t_data *img, int width, int height, int color);
-int		sl_convert_trgb(int t, int r, int g, int b);
-void	sl_draw_caro(t_data *img, int width, int height);
+// void	sl_draw_px(t_data *img, int x, int y, int color);
+// void	sl_draw_square(t_data *img, int width, int height, int color);
+// int		sl_convert_trgb(int t, int r, int g, int b);
+// void	sl_draw_caro(t_data *img, int width, int height);
 
 /* sl_error_handling.c */
 int		ft_strlen_c(char *str, char c);
 int		sl_check_walls(t_map *map);
-int		sl_check_map(t_map **map);
-int		sl_error_msg(int errno);
+int		sl_check_map(t_map *map);
+void		sl_error_msg(int errno);
 void	sl_pre_error_check(int ac, char **av);
 
 #endif

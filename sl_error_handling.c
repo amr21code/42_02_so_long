@@ -6,7 +6,7 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 09:29:56 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/16 19:57:47 by anruland         ###   ########.fr       */
+/*   Updated: 2022/04/17 19:34:06 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,40 @@ int	sl_check_walls(t_map *map)
 	return (1);
 }
 
+int	sl_check_items(t_map *map)
+{
+	int	i;
+	int	items[3];
+
+	i = 0;
+	items[0] = 0;
+	items[1] = 0;
+	items[2] = 0;
+	while (i < map->y)
+	{
+		if (ft_strchr(map->map[i], 'C'))
+			items[0]++;
+		if (ft_strchr(map->map[i], 'E'))
+			items[1]++;
+		if (ft_strchr(map->map[i], 'P'))
+			items[2]++;
+		i++;
+	}
+	if (items[0] > 0 && items[1] > 0 && items[2] > 0)
+		return (1);
+	else
+		return (0);
+}
+
 int	sl_check_map(t_map *map)
 {
-	int	line;
 	int	i;
 
 	while (map->map[i])
 	{
-		if (map->x != ft_strlen(map->map[i]))
+		if (map->x != (int)ft_strlen(map->map[i]))
 			return (2);
-		if (!(ft_strchr(map->map[i], 'C') && ft_strchr(map->map[i], 'E')
-				&& ft_strchr(map->map[i], 'P')))
+		if (!sl_check_items(map))
 			return (1);
 		i++;
 	}
@@ -79,7 +102,7 @@ void	sl_error_msg(int errno)
 	else if (errno == 3)
 		ft_printerror("Error: Map not surrounded by walls!\n");
 	else if (errno > 0)
-		ft_printerror("unknown error (%d)", errno);
+		ft_printerror("unknown error\n");
 }
 
 void	sl_pre_error_check(int ac, char **av)
@@ -87,11 +110,10 @@ void	sl_pre_error_check(int ac, char **av)
 	int	fd;
 
 	if (ac != 2)
-		return (ft_printerror("Usage: ./so_long map-path"));
+		ft_printerror("Usage: ./so_long map-path");
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
-		return (ft_printerror("File not found"));
+		ft_printerror("File not found");
 	if (!ft_strnstr(av[1], ".ber", ft_strlen(av[1])))
-		return (ft_printerror("Not a .ber map"));
-	return (0);
+		ft_printerror("Not a .ber map");
 }
