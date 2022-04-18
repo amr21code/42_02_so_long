@@ -6,23 +6,11 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 09:29:56 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/17 19:34:06 by anruland         ###   ########.fr       */
+/*   Updated: 2022/04/18 17:04:29 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int	ft_strlen_c(char *str, char c)
-{
-	int	str_count;
-
-	str_count = 0;
-	while (str[str_count] != c && str[str_count] != '\0')
-	{
-		str_count++;
-	}
-	return (str_count);
-}
 
 int	sl_check_walls(t_map *map)
 {

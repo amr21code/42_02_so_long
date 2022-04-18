@@ -6,7 +6,7 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:14 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/17 19:19:23 by anruland         ###   ########.fr       */
+/*   Updated: 2022/04/18 17:28:32 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,25 @@
 # include "./gnl/get_next_line.h"
 # include <fcntl.h>
 
-# define TEX 5
+# define TEX 6
 
-enum e_tex {
+enum e_tex
+{
 	wall = 0,
 	floor = 1,
 	collectible = 2,
-	door = 3,
+	stair = 3,
 	player = 4,
-	enemy = 5
+	blank = 5
+};
+
+enum e_keys
+{
+	KEY_A = 97,
+	KEY_S = 115,
+	KEY_D = 100,
+	KEY_W = 119,
+	KEY_ESCAPE = 65307
 };
 
 typedef struct s_image
@@ -54,6 +64,13 @@ typedef struct s_mlx
 	int		height;
 }	t_mlx;
 
+typedef struct s_player
+{
+	int	collected;
+	int	x;
+	int	y;
+}	t_player;
+
 typedef struct s_map
 {
 	char	**map;
@@ -65,27 +82,48 @@ typedef struct s_map
 
 typedef struct s_data
 {
-	t_mlx	mlx;
-	t_map	map;
-	t_image	images[TEX];
+	t_mlx		mlx;
+	t_map		map;
+	t_image		images[TEX];
+	int			moves;
+	int			collectibles;
+	t_player	player;
 }	t_data;
 
 void	*ft_realloc(void *addr, size_t size);
 int		ft_printerror(char *errormsg);
 int		ft_linecount(char *dir);
 char	*ft_strndup(char *src, int len);
+int		ft_strlen_c(char *str, char c);
 
 /* sl_draw.c */
-// void	sl_draw_px(t_data *img, int x, int y, int color);
-// void	sl_draw_square(t_data *img, int width, int height, int color);
-// int		sl_convert_trgb(int t, int r, int g, int b);
-// void	sl_draw_caro(t_data *img, int width, int height);
+void	sl_draw_tile(t_data *data, int i, int j);
+void	sl_draw_map(t_data *data);
 
 /* sl_error_handling.c */
-int		ft_strlen_c(char *str, char c);
 int		sl_check_walls(t_map *map);
+int		sl_check_items(t_map *map);
 int		sl_check_map(t_map *map);
-void		sl_error_msg(int errno);
+void	sl_error_msg(int errno);
 void	sl_pre_error_check(int ac, char **av);
+
+/* sl_parse_map.c */
+void	sl_read_map(t_map *map);
+
+/* sl_init.c */
+void	sl_init_win(t_data *data);
+void	sl_init_sprite(void *mlx, t_image *image);
+void	sl_load_tex(t_data *data);
+void	sl_init_tex_paths(t_data *data);
+
+/* sl_input_handling.c */
+int		sl_check_move(t_data *data, int x, int y);
+void	sl_move(t_data *data, int x, int y);
+int		sl_input(int keycode, t_data **data);
+
+/* main.c */
+int		sl_exit_x(t_data *data);
+void	sl_update_map(t_data *data, int x, int y);
+void	sl_update_text(t_data *data);
 
 #endif
