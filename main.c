@@ -6,31 +6,31 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:19 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/18 17:27:28 by anruland         ###   ########.fr       */
+/*   Updated: 2022/04/19 18:17:20 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	sl_exit_x(t_data *data)
+int	sl_exit_x(t_data **data)
 {
 	int	i;
 
 	i = 0;
 	while (i < TEX)
 	{
-		free(data->images[i].data);
-		free(data->images[i].img);
+		free((*data)->images[i].data);
+		free((*data)->images[i].img);
 		i++;
 	}
 	i = 0;
-	while (data->map.map[i])
+	while ((*data)->map.map[i])
 	{
-		free(data->map.map[i]);
+		free((*data)->map.map[i]);
 		i++;
 	}
-	mlx_destroy_window(data->mlx.mlx, data->mlx.win);
-	free(data->mlx.mlx);
+	mlx_destroy_window((*data)->mlx.mlx, (*data)->mlx.win);
+	free((*data)->mlx.mlx);
 	exit(0);
 	return (0);
 }
@@ -45,18 +45,12 @@ void	sl_update_map(t_data *data, int x, int y)
 		data->images->size_y * data->player.y);
 	if (data->map.map[y][x] == 'E')
 		mlx_put_image_to_window(data->mlx.mlx, data->mlx.win,
-			data->images[stair].img, data->images->size_x * data->player.x,
-			data->images->size_y * data->player.y);
+			data->images[stair].img, data->images->size_x * x,
+			data->images->size_y * y);
 	if (data->map.map[y][x] == 'C')
 	{
 		data->player.collected++;
 		data->map.map[y][x] = '0';
-	}
-	else if (data->map.map[y][x] == 'E'
-		&& data->collectibles == data->player.collected)
-	{
-		ft_printf("You won the game! Congrats!\n");
-		sl_exit_x(data);
 	}
 }
 
@@ -88,6 +82,7 @@ int	main(int ac, char **av)
 		return (ft_printerror("Error allocating data struct"));
 	data->map.path = av[1];
 	sl_read_map(&data->map);
+	sl_error_msg(sl_check_map(&data->map));
 	data->mlx.mlx = mlx_init();
 	if (data->mlx.mlx == NULL)
 		ft_printerror("Error initializing MiniLibX");
@@ -100,9 +95,3 @@ int	main(int ac, char **av)
 	mlx_loop(data->mlx.mlx);
 	return (0);
 }
-
-/*
-free 
-- data
-- map
-*/

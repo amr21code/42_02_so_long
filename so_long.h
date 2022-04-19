@@ -6,7 +6,7 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:14 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/18 17:28:32 by anruland         ###   ########.fr       */
+/*   Updated: 2022/04/19 18:13:53 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void	sl_move(t_data *data, int x, int y);
 int		sl_input(int keycode, t_data **data);
 
 /* main.c */
-int		sl_exit_x(t_data *data);
+int		sl_exit_x(t_data **data);
 void	sl_update_map(t_data *data, int x, int y);
 void	sl_update_text(t_data *data);
 
