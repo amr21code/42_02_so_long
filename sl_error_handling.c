@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sl_error_handling.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: anruland <anruland@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 09:29:56 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/19 18:01:13 by anruland         ###   ########.fr       */
+/*   Updated: 2022/04/27 08:55:08 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	sl_check_map(t_map *map)
 {
 	int	i;
 
+	i = 0;
 	while (map->map[i])
 	{
 		if (map->x != (int)ft_strlen(map->map[i]))

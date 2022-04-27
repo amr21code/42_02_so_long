@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: anruland <anruland@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:14 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/19 18:13:53 by anruland         ###   ########.fr       */
+/*   Updated: 2022/04/27 09:02:04 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,21 @@ enum e_tex
 
 enum e_keys
 {
-	KEY_A = 97,
-	KEY_S = 115,
-	KEY_D = 100,
-	KEY_W = 119,
-	KEY_ESCAPE = 65307
+	KEY_A = 0,
+	KEY_S = 1,
+	KEY_D = 2,
+	KEY_W = 13,
+	KEY_ESCAPE = 53
 };
+
+// enum e_keys
+// {
+// 	KEY_A = 97,
+// 	KEY_S = 115,
+// 	KEY_D = 100,
+// 	KEY_W = 119,
+// 	KEY_ESCAPE = 65307
+// };
 
 typedef struct s_image
 {

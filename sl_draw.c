@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sl_draw.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: anruland <anruland@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:54:46 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/18 17:02:13 by anruland         ###   ########.fr       */
+/*   Updated: 2022/04/27 10:14:59 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 void	sl_draw_tile(t_data *data, int i, int j)
 {
+	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win,
+		data->images[floor].img, data->images->size_x * j,
+		data->images->size_y * i);
 	if (data->map.map[i][j] == '1')
 		mlx_put_image_to_window(data->mlx.mlx, data->mlx.win,
 			data->images[wall].img, data->images->size_x * j,
-			data->images->size_y * i);
-	else if (data->map.map[i][j] == '0')
-		mlx_put_image_to_window(data->mlx.mlx, data->mlx.win,
-			data->images[floor].img, data->images->size_x * j,
 			data->images->size_y * i);
 	else if (data->map.map[i][j] == 'C')
 		mlx_put_image_to_window(data->mlx.mlx, data->mlx.win,

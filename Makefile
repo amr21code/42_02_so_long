@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+         #
+#    By: anruland <anruland@student.42wolfsburg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/19 18:25:30 by anruland          #+#    #+#              #
-#    Updated: 2022/04/12 19:24:51 by anruland         ###   ########.fr        #
+#    Updated: 2022/04/27 09:04:42 by anruland         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 NAME 	= so_long
 CC 		= gcc
 CFLAGS	= -Werror -Wall -Wextra
-LIBS	= -lft -lftprintf -lmlx -lXext -lX11
+LIBS	= -ggdb3 -lft -lftprintf -lmlx -framework OpenGL -framework AppKit #-lX11 -lXext
 LIB_DIR	= -L.
 
 COM_COLOR   = \033[0;34m

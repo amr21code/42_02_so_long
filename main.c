@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: anruland <anruland@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:19 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/19 18:17:20 by anruland         ###   ########.fr       */
+/*   Updated: 2022/04/27 23:09:36 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ int	sl_exit_x(t_data **data)
 	i = 0;
 	while (i < TEX)
 	{
-		free((*data)->images[i].data);
-		free((*data)->images[i].img);
+		mlx_destroy_image((*data)->mlx.mlx, (*data)->images[i].img);
 		i++;
 	}
 	i = 0;
@@ -59,12 +58,12 @@ void	sl_update_text(t_data *data)
 	char	status[100];
 
 	status[0] = '\0';
-	strcat(status, "Moves: ");
-	strcat(status, ft_itoa(data->moves));
-	strcat(status, " Collectibles: ");
-	strcat(status, ft_itoa(data->player.collected));
-	strcat(status, " / ");
-	strcat(status, ft_itoa(data->collectibles));
+	ft_strlcat(status, "Moves: ", 7);
+	ft_strlcat(status, ft_itoa(data->moves), 11);
+	ft_strlcat(status, " Collectibles: ", 26);
+	ft_strlcat(status, ft_itoa(data->player.collected), 29);
+	ft_strlcat(status, " / ", 32);
+	ft_strlcat(status, ft_itoa(data->collectibles), 35);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win,
 		data->images[blank].img, 0,
 		data->mlx.height - 50);

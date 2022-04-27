@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sl_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: anruland <anruland@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:07:48 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/18 17:10:28 by anruland         ###   ########.fr       */
+/*   Updated: 2022/04/27 22:56:05 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	sl_init_sprite(void *mlx, t_image *image)
 {
 	image->img = mlx_xpm_file_to_image(mlx, image->path,
 			&image->size_x, &image->size_y);
-	image->data = mlx_get_data_addr(image->img, &image->bpp,
-			&image->line_size, &image->endian);
+	// image->data = mlx_get_data_addr(image->img, &image->bpp,
+	// 		&image->line_size, &image->endian);
 }
 
 void	sl_load_tex(t_data *data)
