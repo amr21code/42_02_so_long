@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anruland <anruland@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:19 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/27 23:09:36 by anruland         ###   ########.fr       */
+/*   Updated: 2022/05/03 11:39:25 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,28 @@ void	sl_update_map(t_data *data, int x, int y)
 void	sl_update_text(t_data *data)
 {
 	char	status[100];
+	char	*moves;
+	char	*collected;
+	char	*collectibles;
 
+	moves = ft_itoa(data->moves);
+	collected = ft_itoa(data->player.collected);
+	collectibles = ft_itoa(data->collectibles);
 	status[0] = '\0';
 	ft_strlcat(status, "Moves: ", 7);
-	ft_strlcat(status, ft_itoa(data->moves), 11);
+	ft_strlcat(status, moves, 11);
 	ft_strlcat(status, " Collectibles: ", 26);
-	ft_strlcat(status, ft_itoa(data->player.collected), 29);
+	ft_strlcat(status, collected, 29);
 	ft_strlcat(status, " / ", 32);
-	ft_strlcat(status, ft_itoa(data->collectibles), 35);
+	ft_strlcat(status, collectibles, 35);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win,
 		data->images[blank].img, 0,
 		data->mlx.height - 50);
 	mlx_string_put(data->mlx.mlx, data->mlx.win, 10,
 		data->mlx.height - 25, 0xFFFFFFFF, status);
+	free(moves);
+	free(collected);
+	free(collectibles);
 }
 
 int	main(int ac, char **av)
