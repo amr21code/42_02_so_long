@@ -6,7 +6,7 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:14 by anruland          #+#    #+#             */
-/*   Updated: 2022/05/03 10:38:47 by anruland         ###   ########.fr       */
+/*   Updated: 2022/05/05 17:36:09 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 # include <stdlib.h>
 # include <string.h>
 # include "./libft/libft.h"
-# include "./libftprintf/ft_printf.h"
-# include "./gnl/get_next_line.h"
-# include <fcntl.h>
 
 # define TEX 6
 
@@ -100,12 +97,6 @@ typedef struct s_data
 	int			collectibles;
 	t_player	player;
 }	t_data;
-
-void	*ft_realloc(void *addr, size_t size);
-int		ft_printerror(char *errormsg);
-int		ft_linecount(char *dir);
-char	*ft_strndup(char *src, int len);
-int		ft_strlen_c(char *str, char c);
 
 /* sl_draw.c */
 void	sl_draw_tile(t_data *data, int i, int j);
