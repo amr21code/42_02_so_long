@@ -6,7 +6,7 @@
 #    By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/19 18:25:30 by anruland          #+#    #+#              #
-#    Updated: 2022/05/06 07:45:20 by anruland         ###   ########.fr        #
+#    Updated: 2022/05/06 10:26:41 by anruland         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,9 @@ NAME 	= so_long
 CC 		= gcc
 CFLAGS	= -Werror -Wall -Wextra
 # Linux
-#LIBS	= -ggdb3 -lft -lmlx -lX11 -lXext
+LIBS	= -ggdb3 -lft -lmlx -lX11 -lXext
 # Mac
-LIBS	= -ggdb3 -lft -lmlx -framework OpenGL -framework AppKit
+# LIBS	= -ggdb3 -lft -lmlx -framework OpenGL -framework AppKit
 LIB_DIR	= -L./libft/
 
 COM_COLOR   = \033[0;34m
