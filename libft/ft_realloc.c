@@ -6,7 +6,7 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 18:41:54 by anruland          #+#    #+#             */
-/*   Updated: 2022/05/05 17:34:56 by anruland         ###   ########.fr       */
+/*   Updated: 2022/05/06 08:37:54 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ void	*ft_realloc(void *addr, size_t size)
 	void	*ptr;
 	size_t	i;
 
-	if (size > 0)
-		ptr = malloc(size);
+	if (size == 0)
+		return (NULL);
+	ptr = malloc(size);
 	if (!ptr)
 	{
 		if (size <= 0)
