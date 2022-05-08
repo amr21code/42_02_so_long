@@ -6,7 +6,7 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:19 by anruland          #+#    #+#             */
-/*   Updated: 2022/05/03 11:39:25 by anruland         ###   ########.fr       */
+/*   Updated: 2022/05/08 18:52:36 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	sl_exit_x(t_data **data)
 	}
 	mlx_destroy_window((*data)->mlx.mlx, (*data)->mlx.win);
 	free((*data)->mlx.mlx);
+	free((*data)->map.map);
+	free(data);
 	exit(0);
 	return (0);
 }

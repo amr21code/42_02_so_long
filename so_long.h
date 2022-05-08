@@ -6,7 +6,7 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:14 by anruland          #+#    #+#             */
-/*   Updated: 2022/05/08 17:42:13 by anruland         ###   ########.fr       */
+/*   Updated: 2022/05/08 18:52:54 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SO_LONG_H
 
 # include "./mlx/mlx.h"
+// # include <mlx.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
