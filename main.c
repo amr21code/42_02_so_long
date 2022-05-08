@@ -6,32 +6,18 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:19 by anruland          #+#    #+#             */
-/*   Updated: 2022/05/08 18:52:36 by anruland         ###   ########.fr       */
+/*   Updated: 2022/05/08 19:47:00 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	sl_exit_x(t_data **data)
+int	sl_exit_x(t_data *data)
 {
-	int	i;
-
-	i = 0;
-	while (i < TEX)
-	{
-		mlx_destroy_image((*data)->mlx.mlx, (*data)->images[i].img);
-		i++;
-	}
-	i = 0;
-	while ((*data)->map.map[i])
-	{
-		free((*data)->map.map[i]);
-		i++;
-	}
-	mlx_destroy_window((*data)->mlx.mlx, (*data)->mlx.win);
-	free((*data)->mlx.mlx);
-	free((*data)->map.map);
-	free(data);
+	sl_free_images(data);
+	sl_free_map(data);
+	mlx_destroy_window(data->mlx.mlx, data->mlx.win);
+	free(data->mlx.mlx);
 	exit(0);
 	return (0);
 }
@@ -84,24 +70,21 @@ void	sl_update_text(t_data *data)
 
 int	main(int ac, char **av)
 {
-	t_data		*data;
+	t_data		data;
 
 	sl_pre_error_check(ac, av);
-	data = malloc(sizeof(*data));
-	if (!data)
-		return (ft_printerror("Error allocating data struct"));
-	data->map.path = av[1];
-	sl_read_map(&data->map);
-	sl_error_msg(sl_check_map(&data->map));
-	data->mlx.mlx = mlx_init();
-	if (data->mlx.mlx == NULL)
+	data.map.path = av[1];
+	sl_read_map(&data.map);
+	sl_error_msg(sl_check_map(&data.map));
+	data.mlx.mlx = mlx_init();
+	if (data.mlx.mlx == NULL)
 		ft_printerror("Error initializing MiniLibX");
-	sl_init_tex_paths(data);
-	sl_load_tex(data);
-	sl_init_win(data);
-	sl_draw_map(data);
-	mlx_key_hook(data->mlx.win, sl_input, &data);
-	mlx_hook(data->mlx.win, 17, 0, sl_exit_x, &data);
-	mlx_loop(data->mlx.mlx);
+	sl_init_tex_paths(&data);
+	sl_load_tex(&data);
+	sl_init_win(&data);
+	sl_draw_map(&data);
+	mlx_key_hook((&data)->mlx.win, sl_input, &data);
+	mlx_hook((&data)->mlx.win, 17, 0, sl_exit_x, &data);
+	mlx_loop((&data)->mlx.mlx);
 	return (0);
 }

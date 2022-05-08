@@ -6,15 +6,15 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:14 by anruland          #+#    #+#             */
-/*   Updated: 2022/05/08 18:52:54 by anruland         ###   ########.fr       */
+/*   Updated: 2022/05/08 19:47:28 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "./mlx/mlx.h"
-// # include <mlx.h>
+// # include "./mlx/mlx.h"
+# include <mlx.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -122,11 +122,15 @@ void	sl_init_tex_paths(t_data *data);
 /* sl_input_handling.c */
 int		sl_check_move(t_data *data, int x, int y);
 void	sl_move(t_data *data, int x, int y);
-int		sl_input(int keycode, t_data **data);
+int		sl_input(int keycode, t_data *data);
 
 /* main.c */
-int		sl_exit_x(t_data **data);
+int		sl_exit_x(t_data *data);
 void	sl_update_map(t_data *data, int x, int y);
 void	sl_update_text(t_data *data);
+
+/* sl_free.c */
+void	sl_free_images(t_data *data);
+void	sl_free_map(t_data *data);
 
 #endif

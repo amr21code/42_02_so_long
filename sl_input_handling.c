@@ -6,7 +6,7 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:12:55 by anruland          #+#    #+#             */
-/*   Updated: 2022/05/06 10:32:32 by anruland         ###   ########.fr       */
+/*   Updated: 2022/05/08 19:17:32 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	sl_check_move(t_data *data, int x, int y)
 		&& data->collectibles == data->player.collected)
 	{
 		ft_printf("You won the game! Congrats!\n");
-		sl_exit_x(&data);
+		sl_exit_x(data);
 	}
 	if (data->map.map[data->player.y + y][data->player.x + x] != '1')
 		return (1);
@@ -43,17 +43,17 @@ void	sl_move(t_data *data, int x, int y)
 	}
 }
 
-int	sl_input(int keycode, t_data **data)
+int	sl_input(int keycode, t_data *data)
 {
 	if (keycode == KEY_ESCAPE)
 		sl_exit_x(data);
 	else if (keycode == KEY_W)
-		sl_move(*data, 0, -1);
+		sl_move(data, 0, -1);
 	else if (keycode == KEY_A)
-		sl_move(*data, -1, 0);
+		sl_move(data, -1, 0);
 	else if (keycode == KEY_S)
-		sl_move(*data, 0, 1);
+		sl_move(data, 0, 1);
 	else if (keycode == KEY_D)
-		sl_move(*data, 1, 0);
+		sl_move(data, 1, 0);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sl_draw.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anruland <anruland@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:54:46 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/27 10:14:59 by anruland         ###   ########.fr       */
+/*   Updated: 2022/05/08 19:22:33 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
