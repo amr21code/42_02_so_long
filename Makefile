@@ -6,7 +6,7 @@
 #    By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/19 18:25:30 by anruland          #+#    #+#              #
-#    Updated: 2022/05/09 12:01:42 by anruland         ###   ########.fr        #
+#    Updated: 2022/05/09 19:46:21 by anruland         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,10 +16,19 @@ NAME 	= so_long
 CC 		= gcc
 CFLAGS	= -Werror -Wall -Wextra
 # Linux
-# LIBS	= -ggdb3 -lft -lmlx -lX11 -lXext
+LLIBS	= -ggdb3 -lft -lmlx -lX11 -lXext
 # Mac
-LIBS	= -ggdb3 -lft -lmlx -framework OpenGL -framework AppKit
+MLIBS	= -ggdb3 -lft -lmlx -framework OpenGL -framework AppKit
 LIB_DIR	= -L./libft/ #-L./mlx/
+OS		= $(shell uname)
+
+ifeq ($(OS), Linux)
+	LIBS = $(LLIBS)
+endif
+ifeq ($(OS), Darwin)
+	LIBS = $(MLIBS)
+endif
+
 
 COM_COLOR   = \033[0;34m
 OBJ_COLOR   = \033[0;36m
@@ -42,8 +51,6 @@ $(NAME): setup
 setup:
 	@echo "$(COM_COLOR)Compiling libft$(NO_COLOR)"
 	@$(MAKE) -C ./libft
-	@echo "$(COM_COLOR)Compiling mlx$(NO_COLOR)"
-	@$(MAKE) -C ./mlx
 	@echo "$(OK_COLOR)done$(NO_COLOR)"
 
 clean:

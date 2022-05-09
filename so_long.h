@@ -6,15 +6,14 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:14 by anruland          #+#    #+#             */
-/*   Updated: 2022/05/09 12:02:09 by anruland         ###   ########.fr       */
+/*   Updated: 2022/05/09 19:49:28 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "./mlx/mlx.h"
-// # include <mlx.h>
+# include <mlx.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -33,16 +32,17 @@ enum e_tex
 	blank = 5
 };
 
+# ifdef __linux__
 // Linux
-// enum e_keys
-// {
-// 	KEY_A = 97,
-// 	KEY_S = 115,
-// 	KEY_D = 100,
-// 	KEY_W = 119,
-// 	KEY_ESCAPE = 65307
-// };
-
+enum e_keys
+{
+	KEY_A = 97,
+	KEY_S = 115,
+	KEY_D = 100,
+	KEY_W = 119,
+	KEY_ESCAPE = 65307
+};
+# else
 // Mac
 enum e_keys
 {
@@ -52,6 +52,7 @@ enum e_keys
 	KEY_W = 13,
 	KEY_ESCAPE = 53
 };
+# endif
 
 typedef struct s_image
 {
