@@ -6,7 +6,7 @@
 #    By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/19 18:25:30 by anruland          #+#    #+#              #
-#    Updated: 2022/05/08 19:47:18 by anruland         ###   ########.fr        #
+#    Updated: 2022/05/09 12:01:42 by anruland         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ CFLAGS	= -Werror -Wall -Wextra
 # LIBS	= -ggdb3 -lft -lmlx -lX11 -lXext
 # Mac
 LIBS	= -ggdb3 -lft -lmlx -framework OpenGL -framework AppKit
-LIB_DIR	= -L./libft/ -L./mlx/
+LIB_DIR	= -L./libft/ #-L./mlx/
 
 COM_COLOR   = \033[0;34m
 OBJ_COLOR   = \033[0;36m

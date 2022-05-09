@@ -6,7 +6,7 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:19 by anruland          #+#    #+#             */
-/*   Updated: 2022/05/08 19:47:00 by anruland         ###   ########.fr       */
+/*   Updated: 2022/05/09 12:01:29 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ int	sl_exit_x(t_data *data)
 	sl_free_images(data);
 	sl_free_map(data);
 	mlx_destroy_window(data->mlx.mlx, data->mlx.win);
-	free(data->mlx.mlx);
+	mlx_destroy_display(data->mlx.mlx);
+	if (data->mlx.mlx)
+		free(data->mlx.mlx);
+	data->mlx.mlx = NULL;
 	exit(0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 19:25:49 by anruland          #+#    #+#             */
-/*   Updated: 2022/05/08 19:37:52 by anruland         ###   ########.fr       */
+/*   Updated: 2022/05/09 11:59:24 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,12 @@ void	sl_free_map(t_data *data)
 	i = 0;
 	while (data->map.map[i])
 	{
-		free(data->map.map[i]);
+		if (data->map.map[i])
+			free(data->map.map[i]);
+		data->map.map[i] = NULL;
 		i++;
 	}
-	free(data->map.map);
+	if (data->map.map)
+		free(data->map.map);
+	data->map.map = NULL;
 }
