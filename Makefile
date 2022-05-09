@@ -6,7 +6,7 @@
 #    By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/19 18:25:30 by anruland          #+#    #+#              #
-#    Updated: 2022/05/09 19:46:21 by anruland         ###   ########.fr        #
+#    Updated: 2022/05/09 20:01:44 by anruland         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,14 +22,6 @@ MLIBS	= -ggdb3 -lft -lmlx -framework OpenGL -framework AppKit
 LIB_DIR	= -L./libft/ #-L./mlx/
 OS		= $(shell uname)
 
-ifeq ($(OS), Linux)
-	LIBS = $(LLIBS)
-endif
-ifeq ($(OS), Darwin)
-	LIBS = $(MLIBS)
-endif
-
-
 COM_COLOR   = \033[0;34m
 OBJ_COLOR   = \033[0;36m
 OK_COLOR    = \033[0;32m
@@ -38,8 +30,20 @@ WARN_COLOR  = \033[0;33m
 NO_COLOR    = \033[m
 
 # Files
+LSRC		= 	main.c sl_draw.c sl_error_handling.c sl_free.c sl_init.c \
+			sl_input_handling.c sl_parse_map.c
+MSRC		= 	main_mac.c sl_draw.c sl_error_handling.c sl_free.c sl_init.c \
+			sl_input_handling.c sl_parse_map.c
 
-SRC		= ./*.c
+# Mac or Linux?
+ifeq ($(OS), Linux)
+	LIBS = $(LLIBS)
+	SRC = $(LSRC)
+endif
+ifeq ($(OS), Darwin)
+	LIBS = $(MLIBS)
+	SRC = $(MSRC)
+endif
 
 all: $(NAME)
 
