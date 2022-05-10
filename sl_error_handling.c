@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sl_error_handling.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anruland <anruland@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 09:29:56 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/27 08:55:08 by anruland         ###   ########.fr       */
+/*   Updated: 2022/05/10 14:08:58 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,34 +64,36 @@ int	sl_check_items(t_map *map)
 		return (0);
 }
 
-int	sl_check_map(t_map *map)
+int	sl_check_map(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while (map->map[i])
+	while (data->map.map[i])
 	{
-		if (map->x != (int)ft_strlen(map->map[i]))
+		if (data->map.x != (int)ft_strlen(data->map.map[i]))
 			return (2);
-		if (!sl_check_items(map))
+		if (!sl_check_items(&data->map))
 			return (1);
 		i++;
 	}
-	if (!sl_check_walls(map))
+	if (!sl_check_walls(&data->map))
 		return (3);
 	return (0);
 }
 
-void	sl_error_msg(int errno)
+void	sl_error_msg(int errno, t_data *data)
 {
 	if (errno == 1)
-		ft_printerror("Error: No collectible, exit or starting position!\n");
+		ft_printf("Error: No collectible, exit or starting position!\n");
 	else if (errno == 2)
-		ft_printerror("Error: Map not rectangular!\n");
+		ft_printf("Error: Map not rectangular!\n");
 	else if (errno == 3)
-		ft_printerror("Error: Map not surrounded by walls!\n");
+		ft_printf("Error: Map not surrounded by walls!\n");
 	else if (errno > 0)
-		ft_printerror("unknown error\n");
+		ft_printf("unknown error\n");
+	if (errno > 0)
+		sl_exit_map(data);
 }
 
 void	sl_pre_error_check(int ac, char **av)

@@ -6,7 +6,7 @@
 #    By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/19 18:25:30 by anruland          #+#    #+#              #
-#    Updated: 2022/05/09 20:01:44 by anruland         ###   ########.fr        #
+#    Updated: 2022/05/10 14:10:48 by anruland         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ NO_COLOR    = \033[m
 
 # Files
 LSRC		= 	main.c sl_draw.c sl_error_handling.c sl_free.c sl_init.c \
-			sl_input_handling.c sl_parse_map.c
+			sl_input_handling.c sl_parse_map.c sl_exit.c
 MSRC		= 	main_mac.c sl_draw.c sl_error_handling.c sl_free.c sl_init.c \
 			sl_input_handling.c sl_parse_map.c
 

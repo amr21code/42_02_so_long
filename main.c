@@ -6,24 +6,11 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:19 by anruland          #+#    #+#             */
-/*   Updated: 2022/05/09 12:01:29 by anruland         ###   ########.fr       */
+/*   Updated: 2022/05/10 13:53:40 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int	sl_exit_x(t_data *data)
-{
-	sl_free_images(data);
-	sl_free_map(data);
-	mlx_destroy_window(data->mlx.mlx, data->mlx.win);
-	mlx_destroy_display(data->mlx.mlx);
-	if (data->mlx.mlx)
-		free(data->mlx.mlx);
-	data->mlx.mlx = NULL;
-	exit(0);
-	return (0);
-}
 
 void	sl_update_map(t_data *data, int x, int y)
 {
@@ -78,7 +65,7 @@ int	main(int ac, char **av)
 	sl_pre_error_check(ac, av);
 	data.map.path = av[1];
 	sl_read_map(&data.map);
-	sl_error_msg(sl_check_map(&data.map));
+	sl_error_msg(sl_check_map(&data), &data);
 	data.mlx.mlx = mlx_init();
 	if (data.mlx.mlx == NULL)
 		ft_printerror("Error initializing MiniLibX");

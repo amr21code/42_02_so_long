@@ -6,7 +6,7 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:05:55 by anruland          #+#    #+#             */
-/*   Updated: 2022/04/18 17:06:21 by anruland         ###   ########.fr       */
+/*   Updated: 2022/05/10 13:53:24 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,4 @@ void	sl_read_map(t_map *map)
 	}
 	close(fd);
 	free(tmp);
-	sl_error_msg(sl_check_map(map));
 }

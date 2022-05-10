@@ -6,7 +6,7 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:14 by anruland          #+#    #+#             */
-/*   Updated: 2022/05/09 19:49:28 by anruland         ###   ########.fr       */
+/*   Updated: 2022/05/10 14:07:57 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,8 @@ void	sl_draw_map(t_data *data);
 /* sl_error_handling.c */
 int		sl_check_walls(t_map *map);
 int		sl_check_items(t_map *map);
-int		sl_check_map(t_map *map);
-void	sl_error_msg(int errno);
+int		sl_check_map(t_data *data);
+void	sl_error_msg(int errno, t_data *data);
 void	sl_pre_error_check(int ac, char **av);
 
 /* sl_parse_map.c */
@@ -126,12 +126,15 @@ void	sl_move(t_data *data, int x, int y);
 int		sl_input(int keycode, t_data *data);
 
 /* main.c */
-int		sl_exit_x(t_data *data);
 void	sl_update_map(t_data *data, int x, int y);
 void	sl_update_text(t_data *data);
 
 /* sl_free.c */
 void	sl_free_images(t_data *data);
 void	sl_free_map(t_data *data);
+
+/* sl_exit.c */
+int		sl_exit_x(t_data *data);
+int		sl_exit_map(t_data *data);
 
 #endif
