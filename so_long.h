@@ -6,7 +6,7 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:14 by anruland          #+#    #+#             */
-/*   Updated: 2022/05/10 14:07:57 by anruland         ###   ########.fr       */
+/*   Updated: 2022/05/10 20:25:49 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,15 @@ typedef struct s_data
 void	sl_draw_tile(t_data *data, int i, int j);
 void	sl_draw_map(t_data *data);
 
-/* sl_error_handling.c */
+/* sl_error_checks.c */
 int		sl_check_walls(t_map *map);
 int		sl_check_items(t_map *map);
+int		sl_check_valid_elem(t_map *map);
 int		sl_check_map(t_data *data);
-void	sl_error_msg(int errno, t_data *data);
 void	sl_pre_error_check(int ac, char **av);
+
+/* sl_error_msg.c */
+void	sl_error_msg(int errno, t_data *data);
 
 /* sl_parse_map.c */
 void	sl_read_map(t_map *map);
