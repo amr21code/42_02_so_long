@@ -6,7 +6,7 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:05:55 by anruland          #+#    #+#             */
-/*   Updated: 2022/05/10 13:53:24 by anruland         ###   ########.fr       */
+/*   Updated: 2022/05/10 20:29:53 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	sl_read_map(t_map *map)
 	map->y = ft_linecount(map->path);
 	map->map = ft_calloc(map->y + 1, sizeof(*map->map));
 	if (!map->map)
-		ft_printerror("Error allocating map data");
+		ft_printerror("Error\nAllocating map data");
 	fd = open(map->path, O_RDONLY);
 	tmp = get_next_line(fd);
 	map->x = ft_strlen_c(tmp, '\n');
@@ -30,7 +30,7 @@ void	sl_read_map(t_map *map)
 	{
 		map->map[i] = ft_strndup(tmp, ft_strlen_c(tmp, '\n'));
 		if (!map->map[i])
-			ft_printerror("Error allocating line");
+			ft_printerror("Error\nAllocating line");
 		i++;
 		free(tmp);
 		tmp = get_next_line(fd);

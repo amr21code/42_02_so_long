@@ -6,7 +6,7 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 18:13:19 by anruland          #+#    #+#             */
-/*   Updated: 2022/05/10 13:53:40 by anruland         ###   ########.fr       */
+/*   Updated: 2022/05/10 20:29:08 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	main(int ac, char **av)
 	sl_error_msg(sl_check_map(&data), &data);
 	data.mlx.mlx = mlx_init();
 	if (data.mlx.mlx == NULL)
-		ft_printerror("Error initializing MiniLibX");
+		ft_printerror("Error\nInitializing MiniLibX");
 	sl_init_tex_paths(&data);
 	sl_load_tex(&data);
 	sl_init_win(&data);

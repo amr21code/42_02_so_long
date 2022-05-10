@@ -6,7 +6,7 @@
 /*   By: anruland <anruland@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 17:07:48 by anruland          #+#    #+#             */
-/*   Updated: 2022/05/03 11:56:52 by anruland         ###   ########.fr       */
+/*   Updated: 2022/05/10 20:29:36 by anruland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	sl_load_tex(t_data *data)
 		fd = open(data->images[i].path, O_RDONLY);
 		sl_init_sprite(data->mlx.mlx, &data->images[i]);
 		if (!data->images[i].img)
-			ft_printerror("Error creating sprite");
+			ft_printerror("Error\nCreating sprite");
 		i++;
 		close(fd);
 	}
